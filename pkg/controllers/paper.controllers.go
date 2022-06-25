@@ -31,32 +31,8 @@ func NewPaperController(paperService service.PaperService, jwtService service.JW
 	return &paperController{paperService: paperService, jwtService: jwtService}
 }
 
-func (db *paperController) ValidateAuthorization(ctx *gin.Context) string {
-	authHeader := ctx.GetHeader("Authorization")
-	token, err := db.jwtService.ValidateToken(authHeader)
-	if err != nil {
-		response := utils.BuildErrorResponse("Failed to process request", err.Error(), utils.EmptyObj{})
-		ctx.AbortWithStatusJSON(400, response)
-		return ""
-	}
-	claims := token.Claims.(jwt.MapClaims)
-	studentID := fmt.Sprintf("%v", claims["user_id"])
-
-	return studentID
-}
-
 func (db *paperController) All(ctx *gin.Context) {
-	authHeader := ctx.GetHeader("Authorization")
-	token, err := db.jwtService.ValidateToken(authHeader)
-	if err != nil {
-		response := utils.BuildErrorResponse("Failed to process request", "Invalid token", utils.EmptyObj{})
-		ctx.AbortWithStatusJSON(400, response)
-		return
-	}
-	claims := token.Claims.(jwt.MapClaims)
-	studentID := fmt.Sprintf("%v", claims["user_id"])
-
-	papers, err := db.paperService.All(studentID)
+	papers, err := db.paperService.All()
 	if err != nil {
 		response := utils.BuildErrorResponse("Failed to process request", err.Error(), utils.EmptyObj{})
 		ctx.AbortWithStatusJSON(400, response)
@@ -91,17 +67,7 @@ func (db *paperController) FindByTitleAuthorAbstract(ctx *gin.Context) {
 		return
 	}
 
-	authHeader := ctx.GetHeader("Authorization")
-	token, err := db.jwtService.ValidateToken(authHeader)
-	if err != nil {
-		response := utils.BuildErrorResponse("Failed to process request", "Invalid token", utils.EmptyObj{})
-		ctx.AbortWithStatusJSON(400, response)
-		return
-	}
-	claims := token.Claims.(jwt.MapClaims)
-	studentID := fmt.Sprintf("%v", claims["user_id"])
-
-	res, err := db.paperService.FindByTitleAuthorAbstract(searchDTO, studentID)
+	res, err := db.paperService.FindByTitleAuthorAbstract(searchDTO)
 	if err != nil {
 		response := utils.BuildErrorResponse("Failed to process request", err.Error(), utils.EmptyObj{})
 		ctx.AbortWithStatusJSON(400, response)

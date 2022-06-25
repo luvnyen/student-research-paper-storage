@@ -10,10 +10,10 @@ import (
 )
 
 type PaperService interface {
-	All(studentID string) (*[]_paper.PaperResponse, error)
+	All() (*[]_paper.PaperResponse, error)
 	FindByID(paperID string) (*_paper.PaperResponse, error)
 	InsertPaper(paperRequest dto.PaperDTO, studentID string, newFileName string) (*_paper.PaperResponse, error)
-	FindByTitleAuthorAbstract(searchRequest dto.SearchDTO, studentID string) (*[]_paper.PaperResponse, error)
+	FindByTitleAuthorAbstract(searchRequest dto.SearchDTO) (*[]_paper.PaperResponse, error)
 }
 
 type paperService struct {
@@ -24,7 +24,7 @@ func NewPaperService(paperRepository repository.PaperRepository) PaperService {
 	return &paperService{paperRepository: paperRepository}
 }
 
-func (service *paperService) All(studentID string) (*[]_paper.PaperResponse, error) {
+func (service *paperService) All() (*[]_paper.PaperResponse, error) {
 	papers, err := service.paperRepository.All()
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (service *paperService) FindByID(paperID string) (*_paper.PaperResponse, er
 	return &paper_res, nil
 }
 
-func (service *paperService) FindByTitleAuthorAbstract(searchRequest dto.SearchDTO, studentID string) (*[]_paper.PaperResponse, error) {
+func (service *paperService) FindByTitleAuthorAbstract(searchRequest dto.SearchDTO) (*[]_paper.PaperResponse, error) {
 	papers, err := service.paperRepository.FindByTitleAuthorAbstract(searchRequest.Title, searchRequest.Author, searchRequest.Abstract)
 	if err != nil {
 		return nil, err
