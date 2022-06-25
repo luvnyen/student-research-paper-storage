@@ -5,9 +5,9 @@ A service where students can add, view, search, and download papers made by <b>C
 Made using **Go programming language** and **MySQL database** with the following main libraries and frameworks:
 - [Gin Web Framework](https://github.com/gin-gonic/gin)
 - [GORM](https://gorm.io/index.html)
-- [jwt-go](github.com/dgrijalva/jwt-go)
-- [smapping](github.com/mashingan/smapping)
-- [Go MySQL Driver](github.com/go-sql-driver/mysql)
+- [jwt-go](https://github.com/dgrijalva/jwt-go)
+- [smapping](https://github.com/mashingan/smapping)
+- [Go MySQL Driver](https://github.com/go-sql-driver/mysql)
 
 ...and implemented clean architecture, session, also [JWT (JSON Web Tokens)](https://jwt.io/) for authentications.
 
