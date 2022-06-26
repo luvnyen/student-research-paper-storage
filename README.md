@@ -12,3 +12,11 @@ Made using **Go programming language** and **MySQL database** with the following
 ...and implemented clean architecture, session, also [JWT (JSON Web Tokens)](https://jwt.io/) for authentications.
 
 API Documentation 🚀 [Click here](https://documenter.getpostman.com/view/18705948/UzBsGPoy#110464d4-5abd-4937-93e6-b5c6c2b40cc8)
+
+## Services
+- Register an account (name, email, password, and NRP)
+- Login (email and password)
+- Logout
+- Upload a .pdf paper (title, author, year, abstract, and file) - login and authorization required
+- Search papers (by title, author, and abstract)
+- Download a paper - login and authorization required & only the owner can download
